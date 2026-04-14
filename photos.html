@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Photos - Kramer Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav aria-label="Site navigation">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Kramer Lab"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="photos.html" class="active" aria-current="page">Photos</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="https://kramerlab.substack.com/" target="_blank" rel="noopener">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section>
+            <h2>Lab Photos</h2>
+            <p>A look at life in the Kramer Lab.</p>
+        </section>
+
+        <section class="lab-group-section">
+            <h2>Lab Photos</h2>
+            <div class="lab-group-grid">
+                <div class="lab-group-item">
+                    <img src="photos/lab picture 2024.JPEG" alt="Kramer Lab group photo, 2024">
+                    <p class="photo-entry-date">2024</p>
+                </div>
+                <div class="lab-group-item">
+                    <img src="photos/lab photo 2025.jpg" alt="Kramer Lab group photo, 2025">
+                    <p class="photo-entry-date">2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="lab-life-section">
+            <h2>Lab Life</h2>
+            <!--
+                TO ADD A NEW ENTRY:
+                Copy the article block below and paste it at the TOP of this section.
+                - Update the date in <h3 class="photo-entry-date">
+                - Update the description in <p class="photo-entry-desc">
+                - Add one <img> per photo inside <div class="photo-row">
+                - Drop photo files into the photos/ folder
+                - Write descriptive alt text for each photo
+            -->
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">December 2025</h3>
+                <p class="photo-entry-desc">Jackie takes 2nd place in the MCDB Christmas party dessert competition!</p>
+                <div class="photo-row">
+                    <img src="photos/Jackie wins second.jpeg" alt="Jackie Seddon placing 2nd in the MCDB Christmas party dessert competition">
+                </div>
+            </article>
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">June 2025</h3>
+                <p class="photo-entry-desc">Vinayak passes his Checkpoint 2!</p>
+                <div class="photo-row">
+                    <img src="photos/VG checkpoint 2.jpg" alt="Vinayak Ghosh at his Checkpoint 2 defense">
+                </div>
+            </article>
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">May 2025</h3>
+                <p class="photo-entry-desc">Ocho de Mayo with the Kramer, Levitt, and Birdsong Labs</p>
+                <div class="photo-row">
+                    <img src="photos/Ocho de mayo 2025.JPEG" alt="Kramer, Levitt, and Birdsong Labs celebrating Ocho de Mayo">
+                </div>
+            </article>
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">May 2025</h3>
+                <p class="photo-entry-desc">Qianyi graduates with her Master's degree</p>
+                <div class="photo-row">
+                    <img src="photos/QY graduation 1.png" alt="Qianyi Yu at her Master's graduation ceremony">
+                    <img src="photos/QY graduation 2.png" alt="Qianyi Yu celebrating her Master's degree">
+                </div>
+            </article>
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">March 2024</h3>
+                <p class="photo-entry-desc">Vin's first recording!</p>
+                <div class="photo-row">
+                    <img src="photos/Vins first recording.jpeg" alt="Vinayak Ghosh at his first electrophysiology recording">
+                </div>
+            </article>
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">2024</h3>
+                <p class="photo-entry-desc">New electrophysiology rigs</p>
+                <div class="photo-row">
+                    <img src="photos/ephys rig.jpg" alt="New electrophysiology rig in the Kramer Lab">
+                    <img src="photos/ephys rig2.jpg" alt="New electrophysiology rig in the Kramer Lab">
+                </div>
+            </article>
+
+            <article class="photo-entry">
+                <h3 class="photo-entry-date">2023</h3>
+                <p class="photo-entry-desc">The lab space, when it all began</p>
+                <div class="photo-row">
+                    <img src="photos/empty lab 2023.jpeg" alt="Empty Kramer Lab space in 2023">
+                    <img src="photos/empty lab 2023_2.jpeg" alt="Empty Kramer Lab space in 2023">
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kramer Lab. All rights reserved.</p>
+        <p>University of Michigan</p>
+        <button class="vibe-toggle" onclick="toggleVibeMode()">Vibe Mode</button>
+    </footer>
+
+    <script>
+        function toggleVibeMode() {
+            document.body.classList.toggle('vibe-mode');
+            localStorage.setItem('vibeMode', document.body.classList.contains('vibe-mode'));
+        }
+        if (localStorage.getItem('vibeMode') === 'true') {
+            document.body.classList.add('vibe-mode');
+        }
+    </script>
+</body>
+</html>

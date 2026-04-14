@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Kramer Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav aria-label="Site navigation">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Kramer Lab"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="news.html" class="active" aria-current="page">News</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="photos.html">Photos</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="https://kramerlab.substack.com/" target="_blank" rel="noopener">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section>
+            <h2>News</h2>
+            <p>Updates from the Kramer Lab — new papers, personnel, and events.</p>
+
+            <!--
+                TO ADD A NEWS ITEM:
+                Copy the block below and paste it at the top of this section.
+                Update the date, tag, and content.
+                Tags: New Paper | Personnel | Award | Event | Lab News
+            -->
+
+            <article class="news-item">
+                <span class="date">March 2026</span>
+                <span class="news-tag">Lab News</span>
+                <p>Jackie won the lab March Madness pool! Good job, Jackie and <strong style="color: #00274C;">GO BLUE!</strong></p>
+            </article>
+
+            <article class="news-item">
+                <span class="date">January 2026</span>
+                <span class="news-tag">Lab News</span>
+                <p>Welcome to the new Kramer Lab website!</p>
+            </article>
+
+            <article class="news-item">
+                <span class="date">June 2025</span>
+                <span class="news-tag">Award</span>
+                <p>Congratulations to Jackie Seddon and Vinayak Ghosh, both of whom passed their qualifying exams this month!</p>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kramer Lab. All rights reserved.</p>
+        <p>University of Michigan</p>
+        <button class="vibe-toggle" onclick="toggleVibeMode()">Vibe Mode</button>
+    </footer>
+
+    <script>
+        function toggleVibeMode() {
+            document.body.classList.toggle('vibe-mode');
+            localStorage.setItem('vibeMode', document.body.classList.contains('vibe-mode'));
+        }
+        if (localStorage.getItem('vibeMode') === 'true') {
+            document.body.classList.add('vibe-mode');
+        }
+    </script>
+</body>
+</html>

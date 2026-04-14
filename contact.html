@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Kramer Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav aria-label="Site navigation">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Kramer Lab"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="photos.html">Photos</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="https://kramerlab.substack.com/" target="_blank" rel="noopener">Blog</a></li>
+                <li><a href="contact.html" class="active" aria-current="page">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section>
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you. Whether you have questions about our research or are interested in joining the lab, please reach out.</p>
+        </section>
+
+        <section>
+            <h2>Location & Contact Information</h2>
+            <img src="images/BSB.jpg" alt="Biological Sciences Building, University of Michigan" style="width:100%; max-height:400px; object-fit:cover; border-radius:8px; margin-bottom:1.5rem;">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>Address</h3>
+                    <p>Kramer Lab<br>
+                    Department of Molecular, Cellular, and Developmental Biology<br>
+                    University of Michigan<br>
+                    Ann Arbor, MI 48109</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Contact</h3>
+                    <p>Email: pfkramer <em>@</em> umich <em>dot</em> edu<br>
+                    Phone: 734-647-8044<br>
+                    Office: Biological Sciences Building, 4160</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Join the Lab</h2>
+            <div class="research-area">
+                <h3>Prospective Graduate Students</h3>
+                <p>Prospective students should apply through the University of Michigan Neuroscience Graduate Program or the MCDB Graduate Program. Please feel free to contact Dr. Paul Kramer to discuss potential research opportunities.</p>
+            </div>
+            <div class="research-area">
+                <h3>Undergraduate Research</h3>
+                <p>Undergraduate students interested in gaining research experience are encouraged to contact us. We offer opportunities for students to participate in ongoing projects and develop their scientific skills.</p>
+                <p><strong>Current opportunities as of Winter, 2026</strong></p>
+                <p>Unfortunately, there is limited space for new undergraduate researchers.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Send a Message</h2>
+            <form class="contact-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" autocomplete="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+            <p style="margin-top: 1rem; color: var(--gray);"><em>Note: This form requires server-side processing to function. Contact us directly via email for immediate response.</em></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kramer Lab. All rights reserved.</p>
+        <p>University of Michigan</p>
+        <button class="vibe-toggle" onclick="toggleVibeMode()">Vibe Mode</button>
+    </footer>
+
+    <script>
+        function toggleVibeMode() {
+            document.body.classList.toggle('vibe-mode');
+            localStorage.setItem('vibeMode', document.body.classList.contains('vibe-mode'));
+        }
+        if (localStorage.getItem('vibeMode') === 'true') {
+            document.body.classList.add('vibe-mode');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kramer Lab - Neuroscience Research</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav aria-label="Site navigation">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Kramer Lab"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="photos.html">Photos</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="https://kramerlab.substack.com/" target="_blank" rel="noopener">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="hero">
+            <h1>Kramer Lab</h1>
+            <p class="tagline">Exploring the Role of Axons in Neurotransmission</p>
+        </section>
+
+        <section class="intro">
+            <h2>Welcome</h2>
+            <p>The Kramer Lab investigates the hypothesis that axons have an active and unexplored role in neurotransmission. We believe axons can process information and generate outputs comparable to the cell body and dendrites, contributing to both normal brain function and neurological disease mechanisms.</p>
+        </section>
+
+        <section class="highlights">
+            <h2>Research Areas</h2>
+
+            <div class="research-row image-left">
+                <div class="research-image">
+                    <img src="images/EXFiring.png" alt="Action potential recordings showing neuronal firing pattern">
+                </div>
+                <div class="research-content">
+                    <h3><a href="research.html#axon-physiology">Axon Physiology</a></h3>
+                    <p>Exploring how axons process and transmit action potentials, and how ion channels control signal shape and neurotransmitter release.</p>
+                </div>
+            </div>
+
+            <div class="research-row image-right">
+                <div class="research-content">
+                    <h3><a href="research.html#axo-axonic">Axo-axonic Transmission</a></h3>
+                    <p>Studying direct communication between axon terminals, including synaptic-like transmission mechanisms.</p>
+                </div>
+                <div class="research-image">
+                    <img src="images/axo-axonic.jpg" alt="Axo-axonic synaptic schema showing CIN terminal releasing acetylcholine onto DA axon">
+                </div>
+            </div>
+
+            <div class="research-row image-left">
+                <div class="research-image">
+                    <img src="images/tobacco_items.jpg" alt="Various nicotine delivery devices including cigarettes, vapes, and pipes">
+                </div>
+                <div class="research-content">
+                    <h3><a href="research.html#substance-use">Substance Use Disorders</a></h3>
+                    <p>Examining how nicotine and other substances of abuse affect neuronal signaling pathways and dopamine systems.</p>
+                </div>
+            </div>
+
+            <div class="research-row image-right">
+                <div class="research-content">
+                    <h3><a href="research.html#parkinsons">Parkinson's Disease</a></h3>
+                    <p>Investigating dopaminergic system dysfunction and its relevance to motor control disorders.</p>
+                </div>
+                <div class="research-image">
+                    <img src="images/Pretty_SNc.jpg" alt="Fluorescent microscopy image of dopaminergic neurons in the substantia nigra">
+                </div>
+            </div>
+        </section>
+
+        <section class="news">
+            <h2>Latest News</h2>
+            <div id="latest-news-container">
+                <article class="news-item">
+                    <span class="date">January 2026</span>
+                    <p>Welcome to the new Kramer Lab website!</p>
+                </article>
+            </div>
+            <p style="margin-top:1.5rem;"><a href="news.html">View all news &rarr;</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kramer Lab. All rights reserved.</p>
+        <p>University of Michigan</p>
+        <button class="vibe-toggle" onclick="toggleVibeMode()">Vibe Mode</button>
+    </footer>
+
+    <script>
+        // Load latest 3 news items from news.html
+        fetch('news.html')
+            .then(r => r.text())
+            .then(html => {
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const items = Array.from(doc.querySelectorAll('article.news-item')).slice(0, 3);
+                if (items.length === 0) return;
+                const container = document.getElementById('latest-news-container');
+                container.innerHTML = items.map(a => a.outerHTML).join('');
+            })
+            .catch(() => {}); // silently keep the fallback content if fetch fails
+
+        function toggleVibeMode() {
+            document.body.classList.toggle('vibe-mode');
+            localStorage.setItem('vibeMode', document.body.classList.contains('vibe-mode'));
+        }
+        // Check saved preference
+        if (localStorage.getItem('vibeMode') === 'true') {
+            document.body.classList.add('vibe-mode');
+        }
+    </script>
+</body>
+</html>

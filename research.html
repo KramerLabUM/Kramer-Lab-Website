@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Kramer Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav aria-label="Site navigation">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Kramer Lab"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="research.html" class="active" aria-current="page">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="photos.html">Photos</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="https://kramerlab.substack.com/" target="_blank" rel="noopener">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="hero">
+            <h1>Our Research</h1>
+            <p class="tagline">Exploring the Role of Axons in Neurotransmission</p>
+        </section>
+
+        <section>
+            <h2>Research Overview</h2>
+            <p>The Kramer Lab investigates the hypothesis that axons have an active and unexplored role in neurotransmission. We believe axons can process information and generate outputs comparable to the cell body and dendrites, contributing to both normal brain function and neurological disease mechanisms. Our lab integrates electrophysiology, calcium imaging, and receptor pharmacology to understand how dopamine, GABA, and glutamate systems operate at the axonal level.</p>
+        </section>
+
+        <section>
+            <h2>Research Areas</h2>
+
+            <div class="research-area" id="axon-physiology">
+                <h3>Axon Physiology</h3>
+                <p>We investigate how axons process and transmit action potentials, which differ fundamentally from soma dynamics. Action potentials immediately change shape in the axon. It is this axonal shape of the action potential that determines neurotransmitter release, rather than the shape of the somatic spike. We seek to identify which ion channels control this transformation and how axonal channel properties influence conduction velocity, signal propagation fidelity, and metabolic demands. Using direct voltage recordings from axons and functional imaging approaches, we bridge the gap between whole-cell neuronal properties and the specialized biophysics of the axon.</p>
+            </div>
+
+            <div class="research-area" id="axo-axonic">
+                <h3>Axo-axonic Transmission</h3>
+                <p>We study direct communication between axon terminals, including synaptic-like transmission mechanisms. This research explores how signals are transmitted directly from one axon to another, bypassing known synaptic pathways and revealing novel mechanisms of neural communication.</p>
+            </div>
+
+            <div class="research-area" id="substance-use">
+                <h3>Substance Use Disorders</h3>
+                <p>We examine how nicotine and similar substances affect neuronal signaling pathways. Our research focuses on understanding the neurobiological mechanisms related to addiction, particularly how these substances alter dopamine signaling at the axonal level.</p>
+            </div>
+
+            <div class="research-area" id="parkinsons">
+                <h3>Parkinson's Disease</h3>
+                <p>We investigate dopaminergic system dysfunction relevant to motor control disorders. Our work examines the neurological processes underlying this degenerative condition, focusing on how axonal mechanisms contribute to disease progression and on potential therapeutic targets.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Methods and Techniques</h2>
+            <div class="highlight-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="highlight-card">
+                    <h3>Electrophysiology</h3>
+                    <p>Direct voltage recordings from axons and patch-clamp recordings.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Functional Imaging</h3>
+                    <p>Calcium imaging and other functional approaches to measure axonal activity.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Receptor Pharmacology</h3>
+                    <p>Investigating dopamine, GABA, and glutamate receptor systems.</p>
+                </div>
+                <div class="highlight-card" style="grid-column: 2;">
+                    <h3>Computational Analysis</h3>
+                    <p>Modeling axonal computations and signal processing.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kramer Lab. All rights reserved.</p>
+        <p>University of Michigan</p>
+        <button class="vibe-toggle" onclick="toggleVibeMode()">Vibe Mode</button>
+    </footer>
+
+    <script>
+        function toggleVibeMode() {
+            document.body.classList.toggle('vibe-mode');
+            localStorage.setItem('vibeMode', document.body.classList.contains('vibe-mode'));
+        }
+        if (localStorage.getItem('vibeMode') === 'true') {
+            document.body.classList.add('vibe-mode');
+        }
+    </script>
+</body>
+</html>

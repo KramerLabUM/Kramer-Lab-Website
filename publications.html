@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications - Kramer Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav aria-label="Site navigation">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Kramer Lab"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="photos.html">Photos</a></li>
+                <li><a href="publications.html" class="active" aria-current="page">Publications</a></li>
+                <li><a href="https://kramerlab.substack.com/" target="_blank" rel="noopener">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section>
+            <h2>Publications</h2>
+            <p>For a complete list, see our
+                <a href="https://scholar.google.com/citations?user=gtnqlrsAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                or <a href="https://orcid.org/0000-0002-0095-3712" target="_blank" rel="noopener noreferrer">ORCID</a> profile.
+                This list is updated automatically from ORCID.</p>
+        </section>
+
+        <div id="publications-container">
+            <p class="pub-loading">Loading publications&hellip;</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kramer Lab. All rights reserved.</p>
+        <p>University of Michigan</p>
+        <button class="vibe-toggle" onclick="toggleVibeMode()">Vibe Mode</button>
+    </footer>
+
+    <script>
+        function toggleVibeMode() {
+            document.body.classList.toggle('vibe-mode');
+            localStorage.setItem('vibeMode', document.body.classList.contains('vibe-mode'));
+        }
+        if (localStorage.getItem('vibeMode') === 'true') {
+            document.body.classList.add('vibe-mode');
+        }
+    </script>
+
+    <script>
+        // PDF map — add a filename here when you have a PDF for that paper.
+        // Leave the value as null to show no PDF link.
+        // Drop PDF files into the pdfs/ folder, then fill in the filename below.
+        const PDF_MAP = {
+            '10.64898/2025.12.19.695584':      'pubs/bidirectional signaling preprint 2026.pdf',
+            '10.3389/fncel.2025.1681044':       'pubs/Seddon and Kramer 2025 review.pdf',
+            '10.1016/j.neuron.2022.07.011':     'pubs/Kramer Khaliq 2022 Neuron.pdf',
+            '10.1126/science.abn0532':          'pubs/Science 2022 Kaeser.pdf',
+            '10.7554/eLife.55729':              'pubs/Kramer Khaliq 2020 eLife.pdf',
+            '10.1371/journal.pone.0187732':     'pubs/2color 1photon.pdf',
+            '10.1016/j.celrep.2016.11.076':     'pubs/Kramer Williams 2016 Cell Reports.pdf',
+            '10.1038/npp.2015.91':              'pubs/Kramer Williams NPP 2015.pdf',
+            '10.1038/nn.3369':                  'pubs/Bock et al 2013.pdf',
+            '10.1523/JNEUROSCI.4287-10.2011':   'pubs/Kramer et al J Neuro 2011 D2.pdf',
+            '10.1016/j.celrep.2025.116555':      'pubs/Brill_Weil et al., 2025.pdf',
+        };
+
+        (async function loadPublications() {
+            const ORCID_ID = '0000-0002-0095-3712';
+            const BASE = 'https://pub.orcid.org/v3.0';
+            const HEADERS = { 'Accept': 'application/json' };
+            const container = document.getElementById('publications-container');
+
+            try {
+                // Fetch works summary list
+                const listResp = await fetch(`${BASE}/${ORCID_ID}/works`, { headers: HEADERS });
+                if (!listResp.ok) throw new Error(`ORCID list error: ${listResp.status}`);
+                const listData = await listResp.json();
+
+                // Pick one put-code per group: prefer self-entered over Crossref/Scopus
+                const putCodes = listData.group.map(group => {
+                    const summaries = group['work-summary'];
+                    const self = summaries.find(s => s.source?.['source-orcid']?.path === ORCID_ID);
+                    return (self || summaries[0])['put-code'];
+                });
+
+                // Fetch full work details in one batch call (includes contributors)
+                const bulkResp = await fetch(`${BASE}/${ORCID_ID}/works/${putCodes.join(',')}`, { headers: HEADERS });
+                if (!bulkResp.ok) throw new Error(`ORCID bulk error: ${bulkResp.status}`);
+                const bulkData = await bulkResp.json();
+
+                // Parse each work
+                const works = bulkData.bulk.map(item => {
+                    const w = item.work;
+                    const year = parseInt(w['publication-date']?.year?.value) || 0;
+                    const title = w.title?.title?.value || '(no title)';
+                    const journal = w['journal-title']?.value || null;
+                    const type = w.type || 'journal-article';
+
+                    const doi = (w['external-ids']?.['external-id'] || [])
+                        .find(id => id['external-id-type'] === 'doi')
+                        ?.['external-id-value'] || null;
+
+                    const authors = (w.contributors?.contributor || [])
+                        .filter(c => {
+                            const role = c['contributor-attributes']?.['contributor-role'];
+                            return !role || role === 'author' || role.includes('author');
+                        })
+                        .map(c => {
+                            const name = c['credit-name']?.value || '';
+                            if (!name) return null;
+                            return /kramer/i.test(name) ? `<strong>${name}</strong>` : name;
+                        })
+                        .filter(Boolean);
+
+                    return { year, title, journal, type, doi, authors };
+                });
+
+                // Sort descending by year
+                works.sort((a, b) => b.year - a.year);
+
+                // Group by year
+                const byYear = {};
+                works.forEach(w => {
+                    const y = w.year || 'Unknown';
+                    if (!byYear[y]) byYear[y] = [];
+                    byYear[y].push(w);
+                });
+
+                // Render
+                container.innerHTML = '';
+                Object.keys(byYear)
+                    .sort((a, b) => parseInt(b) - parseInt(a))
+                    .forEach(year => {
+                        const section = document.createElement('section');
+
+                        const h2 = document.createElement('h2');
+                        h2.textContent = year;
+                        section.appendChild(h2);
+
+                        byYear[year].forEach(w => {
+                            const div = document.createElement('div');
+                            div.className = 'publication';
+
+                            // Title, linked to DOI if available
+                            const h3 = document.createElement('h3');
+                            if (w.doi) {
+                                const a = document.createElement('a');
+                                a.href = `https://doi.org/${w.doi}`;
+                                a.target = '_blank';
+                                a.rel = 'noopener noreferrer';
+                                a.textContent = w.title;
+                                const notice = document.createElement('span');
+                                notice.className = 'sr-only';
+                                notice.textContent = ' (opens in new tab)';
+                                a.appendChild(notice);
+                                h3.appendChild(a);
+                            } else {
+                                h3.textContent = w.title;
+                            }
+                            div.appendChild(h3);
+
+                            // Authors (when available from ORCID)
+                            if (w.authors.length > 0) {
+                                const p = document.createElement('p');
+                                p.className = 'authors';
+                                p.innerHTML = w.authors.join(', ');
+                                div.appendChild(p);
+                            }
+
+                            // Journal + preprint badge
+                            const journalP = document.createElement('p');
+                            journalP.className = 'journal';
+                            let journalHtml = w.journal ? w.journal : '';
+                            if (w.type === 'preprint') {
+                                journalHtml += '<span class="pub-type">Preprint</span>';
+                            }
+                            if (journalHtml) {
+                                journalP.innerHTML = journalHtml;
+                                div.appendChild(journalP);
+                            }
+
+                            // PDF download link
+                            const pdfPath = w.doi ? PDF_MAP[w.doi] : null;
+                            if (pdfPath) {
+                                const pdfP = document.createElement('p');
+                                pdfP.className = 'pub-pdf';
+                                pdfP.innerHTML = `<a href="${pdfPath}" target="_blank" rel="noopener noreferrer">Download PDF<span class="sr-only"> (opens in new tab)</span></a>`;
+                                div.appendChild(pdfP);
+                            }
+
+                            section.appendChild(div);
+                        });
+
+                        container.appendChild(section);
+                    });
+
+            } catch (err) {
+                console.error('Failed to load publications from ORCID:', err);
+                container.innerHTML = `
+                    <section>
+                        <p>Publications could not be loaded automatically at this time.
+                        Please visit our
+                        <a href="https://orcid.org/0000-0002-0095-3712" target="_blank" rel="noopener noreferrer">ORCID profile</a>
+                        or <a href="https://scholar.google.com/citations?user=gtnqlrsAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                        for the full list.</p>
+                    </section>`;
+            }
+        })();
+    </script>
+</body>
+</html>
